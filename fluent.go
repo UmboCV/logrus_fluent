@@ -216,7 +216,7 @@ func (hook *FluentHook) getTagAndDel(entry *logrus.Entry, data logrus.Fields) st
 	}
 
 	// remove tag from data fields
-	delete(data, TagField)
+	//delete(data, TagField)
 	return tag
 }
 
