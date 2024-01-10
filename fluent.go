@@ -181,10 +181,21 @@ func (hook *FluentHook) Fire(entry *logrus.Entry) error {
 		data[k] = v
 	}
 
+	fmt.Println("logrus_fluent Fields A:")
+	for key, value := range data {
+		fmt.Printf("  %s: %v\n", key, value)
+	}
+
 	setLevelString(entry, data)
 	tag := hook.getTagAndDel(entry, data)
 	if tag != entry.Message {
+		fmt.Println("hook.setMessage")
 		hook.setMessage(entry, data)
+	}
+
+	fmt.Println("logrus_fluent Fields B:")
+	for key, value := range data {
+		fmt.Printf("  %s: %v\n", key, value)
 	}
 
 	// modify data to your own needs.
@@ -192,7 +203,7 @@ func (hook *FluentHook) Fire(entry *logrus.Entry) error {
 		fn(entry, data)
 	}
 
-	fmt.Println("logrus_fluent Fields:")
+	fmt.Println("logrus_fluent Fields C:")
 	for key, value := range data {
 		fmt.Printf("  %s: %v\n", key, value)
 	}
