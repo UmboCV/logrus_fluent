@@ -1,6 +1,8 @@
 package logrus_fluent
 
 import (
+	"fmt"
+
 	"github.com/fluent/fluent-logger-golang/fluent"
 	"github.com/sirupsen/logrus"
 )
@@ -189,6 +191,13 @@ func (hook *FluentHook) Fire(entry *logrus.Entry) error {
 	for _, fn := range hook.customizers {
 		fn(entry, data)
 	}
+
+	fmt.Println("logrus_fluent Fields:")
+	for key, value := range data {
+		fmt.Printf("  %s: %v\n", key, value)
+	}
+
+	fmt.Println("------------------------------ <-")
 
 	fluentData := ConvertToValue(data, TagName)
 	err = logger.PostWithTime(tag, entry.Time, fluentData)
