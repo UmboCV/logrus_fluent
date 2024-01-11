@@ -189,11 +189,18 @@ func (hook *FluentHook) Fire(entry *logrus.Entry) error {
 	setLevelString(entry, data)
 	tag := hook.getTagAndDel(entry, data)
 	if tag != entry.Message {
-		fmt.Println("hook.setMessage")
+		fmt.Println("logrus_fluent Fields B1:")
+		for key, value := range data {
+			fmt.Printf("  %s: %v\n", key, value)
+		}
 		hook.setMessage(entry, data)
+		fmt.Println("logrus_fluent Fields B2:")
+		for key, value := range data {
+			fmt.Printf("  %s: %v\n", key, value)
+		}
 	}
 
-	fmt.Println("logrus_fluent Fields B:")
+	fmt.Println("logrus_fluent Fields B3:")
 	for key, value := range data {
 		fmt.Printf("  %s: %v\n", key, value)
 	}
