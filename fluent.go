@@ -230,22 +230,25 @@ func (hook *FluentHook) Fire(entry *logrus.Entry) error {
 func (hook *FluentHook) getTagAndDel(entry *logrus.Entry, data logrus.Fields) string {
 	// use static tag from
 
-	fmt.Printf("hook.tag:%s, TagField:%s, data[TagField]:%s\n", *hook.tag, TagField, data[TagField])
+	fmt.Printf("getTagAndDel 0 hook.tag:%s, TagField:%s, data[TagField]:%s\n", *hook.tag, TagField, data[TagField])
 
 	if hook.tag != nil {
 		return *hook.tag
 	}
 
+	fmt.Printf("getTagAndDel 1")
 	tagField, ok := data[TagField]
 	if !ok {
 		return entry.Message
 	}
 
+	fmt.Printf("getTagAndDel 2")
 	tag, ok := tagField.(string)
 	if !ok {
 		return entry.Message
 	}
 
+	fmt.Printf("getTagAndDel 3")
 	// remove tag from data fields
 	delete(data, TagField)
 	return tag
