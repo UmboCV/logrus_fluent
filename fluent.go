@@ -236,19 +236,19 @@ func (hook *FluentHook) getTagAndDel(entry *logrus.Entry, data logrus.Fields) st
 		return *hook.tag
 	}
 
-	fmt.Printf("getTagAndDel 1")
+	//fmt.Printf("getTagAndDel 1")
 	tagField, ok := data[TagField]
 	if !ok {
 		return entry.Message
 	}
 
-	fmt.Printf("getTagAndDel 2")
+	//fmt.Printf("getTagAndDel 2")
 	tag, ok := tagField.(string)
 	if !ok {
 		return entry.Message
 	}
 
-	fmt.Printf("getTagAndDel 3")
+	//fmt.Printf("getTagAndDel 3")
 	// remove tag from data fields
 	delete(data, TagField)
 	return tag
